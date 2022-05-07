@@ -2,33 +2,31 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
-type Profile struct {
-	name string
-	age  int
-}
-
-func upperAllLetter(p *Profile) {
-	*&p.name = strings.ToUpper(*&p.name)
-}
-
-func increaseAge(p *Profile, increaseValue int) {
-	*&p.age = p.age + increaseValue
-}
-
 func main() {
-	p := Profile{
-		name: "holilope",
-		age:  18,
+	deno := []int{1, 2, 5, 10, 20, 50, 100, 500, 1000}
+
+	ans := []int{}
+
+	value := 0
+
+	fmt.Print("value : ")
+	fmt.Scan(&value)
+
+	i := len(deno) - 1
+
+	for i >= 0 {
+		for value >= deno[i] {
+			value -= deno[i]
+			ans = append(ans, deno[i])
+		}
+		i -= 1
 	}
 
-	upperAllLetter(&p)
-	increaseAge(&p, 5)
+	fmt.Println("-------แบงที่ต้องทอน-------")
+	for i, s := range ans {
+		fmt.Println(i+1, ". ", s, " บาท")
+	}
 
-	fmt.Println("name => ", p.name, " => ", &p.name)
-	fmt.Println("age => ", p.age, " => ", &p.age)
 }
-
-// ref https://dev.to/iporsut/go-pointer-pointer-go-3212
