@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -19,15 +20,15 @@ func increaseAge(p *Profile, increaseValue int) {
 
 func main() {
 	p := Profile{
-		name: "holope",
+		name: "holilope",
 		age:  18,
 	}
 
 	upperAllLetter(&p)
 	increaseAge(&p, 5)
 
-	println("name => ", p.name)
-	println("age => ", p.age)
+	fmt.Println("name => ", p.name, " => ", &p.name)
+	fmt.Println("age => ", p.age, " => ", &p.age)
 }
 
 // ref https://dev.to/iporsut/go-pointer-pointer-go-3212
