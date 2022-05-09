@@ -2,31 +2,32 @@ package main
 
 import (
 	"fmt"
+	"http-request/pekostruct"
+	"io/ioutil"
+	"log"
+	"net/http"
 )
 
+func bodyParser(resp *http.Response) []byte {
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return body
+
+}
+
 func main() {
-	deno := []int{1, 2, 5, 10, 20, 50, 100, 500, 1000}
+	resp, err := http.Get("https://pokeapi.co/api/v2/pokemon/ditto")
 
-	ans := []int{}
-
-	value := 0
-
-	fmt.Print("value : ")
-	fmt.Scan(&value)
-
-	i := len(deno) - 1
-
-	for i >= 0 {
-		for value >= deno[i] {
-			value -= deno[i]
-			ans = append(ans, deno[i])
-		}
-		i -= 1
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	fmt.Println("-------แบงที่ต้องทอน-------")
-	for i, s := range ans {
-		fmt.Println(i+1, ". ", s, " บาท")
-	}
+	pekostruct, err := pekostruct.UnmarshalPekostruct(bodyParser(resp))
+	fmt.Println(pekostruct.BaseExperience)
 
+	// fmt.Println(bodyParser(resp))
 }
