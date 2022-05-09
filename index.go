@@ -24,7 +24,7 @@ func main() {
 		i -= 1
 	}
 
-	fmt.Println("-------แบงที่ต้องทอน-------")
+	fmt.Println("-------แบงค์ที่ต้องทอน-------")
 	for i, s := range ans {
 		fmt.Println(i+1, ". ", s, " บาท")
 	}
