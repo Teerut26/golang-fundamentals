@@ -2,32 +2,18 @@ package main
 
 import (
 	"fmt"
-	"http-request/pekostruct"
-	"io/ioutil"
-	"log"
-	"net/http"
+	"go-fundamentals/controller"
+
+	"github.com/gin-gonic/gin"
 )
 
-func bodyParser(resp *http.Response) []byte {
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return body
-
-}
-
 func main() {
-	resp, err := http.Get("https://pokeapi.co/api/v2/pokemon/ditto")
+	router := gin.Default()
+	port := "91"
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	router.GET("/home", controller.HomePage)
+	router.GET("/count", controller.CountPage)
 
-	pekostruct, err := pekostruct.UnmarshalPekostruct(bodyParser(resp))
-	fmt.Println(pekostruct.BaseExperience)
-
-	// fmt.Println(bodyParser(resp))
+	fmt.Println("run on port : ", port)
+	router.Run(":" + port)
 }
