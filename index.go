@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"go-fundamentals/controller"
+	"go-fundamentals/configs"
+	"go-fundamentals/routes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,10 +10,11 @@ import (
 func main() {
 	router := gin.Default()
 	port := "91"
+	//run database
+	configs.ConnectDB()
 
-	router.GET("/home", controller.HomePage)
-	router.GET("/count", controller.CountPage)
+	//routes
+	routes.UserRoute(router)
 
-	fmt.Println("run on port : ", port)
 	router.Run(":" + port)
 }
